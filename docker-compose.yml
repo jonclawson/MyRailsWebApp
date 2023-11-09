@@ -1,0 +1,20 @@
+version: '3'
+services:
+  web:
+    image: my-rails-app:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      - RAILS_ENV=development
+  #     - DATABASE_URL=postgresql://myuser:mypassword@db/myapp_development
+  #   depends_on:
+  #     - db
+  # db:
+  #   image: postgres:13
+  #   environment:
+  #     - POSTGRES_DB=myapp_development
+  #     - POSTGRES_USER=myuser
+  #     - POSTGRES_PASSWORD=mypassword

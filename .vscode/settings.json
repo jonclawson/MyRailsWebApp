@@ -1,0 +1,5 @@
+{
+    "containerApps.deployWorkspaceProject.containerAppResourceGroupName": "helloworldapi",
+    "containerApps.deployWorkspaceProject.containerAppName": "helloworldapi",
+    "containerApps.deployWorkspaceProject.containerRegistryName": "helloworldapi2b015d"
+}
