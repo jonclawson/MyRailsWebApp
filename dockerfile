@@ -11,7 +11,7 @@ COPY . /app
 RUN bundle install
 
 # Expose the port your Rails app will run on
-EXPOSE 3000
+EXPOSE 80
 
 # Start your Rails application
 CMD ["rails", "server", "-b -e production", "0.0.0.0"]
