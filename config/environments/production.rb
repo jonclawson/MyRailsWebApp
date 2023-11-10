@@ -1,7 +1,7 @@
 require "active_support/core_ext/integer/time"
 
 Rails.application.configure do
-  config.hosts = "myrailwebapp.niceplant-c7a29b42.westus2.azurecontainerapps.io"
+  config.hosts << "myrailwebapp.niceplant-c7a29b42.westus2.azurecontainerapps.io"
   # Settings specified here will take precedence over those in config/application.rb.
 
   # Code is not reloaded between requests.
