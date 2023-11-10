@@ -18,22 +18,22 @@ jobs:
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-    - name: Build and Push Docker Image
-      run: |
-        docker login myrailwebapp.azurecr.io --username myrailwebapp --password ${{ secrets.REGISTRY_PASSWORD }}
-        docker build -t myrailwebapp.azurecr.io/myrailwebapp:${{ github.sha }} .
-        docker push myrailwebapp.azurecr.io/myrailwebapp:${{ github.sha }}
-      env:
-        DOCKER_BUILDKIT: 1
+    # - name: Build and Push Docker Image
+    #   run: |
+    #     docker login myrailwebapp.azurecr.io --username myrailwebapp --password ${{ secrets.REGISTRY_PASSWORD }}
+    #     docker build -t myrailwebapp.azurecr.io/myrailwebapp:${{ github.sha }} .
+    #     docker push myrailwebapp.azurecr.io/myrailwebapp:${{ github.sha }}
+    #   env:
+    #     DOCKER_BUILDKIT: 1
 
     - name: Build and deploy Container App
-      uses: azure/container-apps-deploy-action@v1
+      uses: azure/container-apps-deploy-action@v2
       with:
         appSourcePath: ${{ github.workspace }}
         acrName: myrailwebapp
         containerAppName: my-rails-web-app
         resourceGroup: DefaultResourceGroup-EUS
-        imageToDeploy: myrailwebapp:${{ github.sha }}
+        # imageToDeploy: myrailwebapp:${{ github.sha }}
 
     # - name: Login to Azure Container Registry
     #   run: |
