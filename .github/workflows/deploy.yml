@@ -18,21 +18,33 @@ jobs:
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-    # - name: Build and Push Docker Image
-    #   run: |
-    #     docker login myrailwebapp.azurecr.io --username myrailwebapp --password ${{ secrets.REGISTRY_PASSWORD }}
-    #     docker build -t myrailwebapp.azurecr.io/myrailwebapp:${{ github.sha }} .
-    #     docker push myrailwebapp.azurecr.io/myrailwebapp:${{ github.sha }}
-    #   env:
-    #     DOCKER_BUILDKIT: 1
-
-    - name: Build and deploy Container App
-      uses: azure/container-apps-deploy-action@v2
+    - name: 'Build and Push Image to ACR'
+      uses: azure/docker-login@v1
       with:
-        appSourcePath: ${{ github.workspace }}
-        acrName: myrailwebapp
-        containerAppName: my-rails-web-app
-        resourceGroup: DefaultResourceGroup-EUS
+        login-server: myrailwebapp.azurecr.io
+        username: ${{ secrets.REGISTRY_USERNAME }}
+        password: ${{ secrets.REGISTRY_PASSWORD }}        
+        # docker login myrailwebapp.azurecr.io --username myrailwebapp --password ${{ secrets.REGISTRY_PASSWORD }}
+      run: |
+        docker build -t myrailwebapp.azurecr.io/myrailwebapp:${{ github.sha }} .
+        docker push myrailwebapp.azurecr.io/myrailwebapp:${{ github.sha }}
+      env:
+        DOCKER_BUILDKIT: 1
+
+    - name: 'Deploy Container App'
+      uses: Azure/cli@v1
+      with:
+        inlineScript: |
+          echo "Starting Deploying"
+          az containerapp up -n myrailwebapp -g DefaultResourceGroup-EUS -i myrailwebapp.azurecr.io/myrailwebapp:${{ github.sha }} --registry-login-server myrailwebapp.azurecr.io --registry-username  ${{ secrets.REGISTRY_USERNAME }} --registry-password ${{ secrets.REGISTRY_PASSWORD }} --debug
+
+    # - name: Build and deploy Container App
+    #   uses: azure/container-apps-deploy-action@v2
+    #   with:
+    #     appSourcePath: ${{ github.workspace }}
+    #     acrName: myrailwebapp
+    #     containerAppName: my-rails-web-app
+    #     resourceGroup: DefaultResourceGroup-EUS
         # imageToDeploy: myrailwebapp:${{ github.sha }}
 
     # - name: Login to Azure Container Registry
@@ -44,8 +56,9 @@ jobs:
 
     # - name: Build and Push Docker Image
     #   run: |
-    #     docker build -t <your-acr-name>.azurecr.io/<app-name>:latest .
-    #     docker push <your-acr-name>.azurecr.io/<app-name>:latest
+    #     docker login myrailwebapp.azurecr.io --username myrailwebapp --password ${{ secrets.REGISTRY_PASSWORD }}
+    #     docker build -t myrailwebapp.azurecr.io/myrailwebapp:${{ github.sha }} .
+    #     docker push myrailwebapp.azurecr.io/myrailwebapp:${{ github.sha }}
     #   env:
     #     DOCKER_BUILDKIT: 1
 
