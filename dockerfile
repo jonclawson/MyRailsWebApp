@@ -15,3 +15,5 @@ EXPOSE 3000
 
 # Start your Rails application
 CMD ["rails", "server", "-b", "0.0.0.0", "-e", "production"]
+
+#end file
