@@ -14,4 +14,4 @@ RUN bundle install
 EXPOSE 80
 
 # Start your Rails application
-CMD ["rails", "server", "-b -e production", "0.0.0.0"]
+CMD ["rails", "server", "-b", "0.0.0.0"]
