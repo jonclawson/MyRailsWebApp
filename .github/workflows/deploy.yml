@@ -25,11 +25,10 @@ jobs:
         username: ${{ secrets.REGISTRY_USERNAME }}
         password: ${{ secrets.REGISTRY_PASSWORD }}        
         # docker login myrailwebapp.azurecr.io --username myrailwebapp --password ${{ secrets.REGISTRY_PASSWORD }}
-      run: |
+    - run: |
         docker build -t myrailwebapp.azurecr.io/myrailwebapp:${{ github.sha }} .
         docker push myrailwebapp.azurecr.io/myrailwebapp:${{ github.sha }}
-      env:
-        DOCKER_BUILDKIT: 1
+
 
     - name: 'Deploy Container App'
       uses: Azure/cli@v1
