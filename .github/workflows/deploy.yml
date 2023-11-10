@@ -20,17 +20,17 @@ jobs:
 
     - name: Build and deploy Container App
       uses: azure/container-apps-deploy-action@v1
-      with:
-        containerAppName: my-rails-web-app
-        appSourcePath: ${{ github.workspace }}
-        registryUrl: myrailwebapp.dockerhub.io
-        registryUsername: ${{ secrets.REGISTRY_USERNAME }}
-        registryPassword: ${{ secrets.REGISTRY_PASSWORD }}
       # with:
-      #   appSourcePath: ${{ github.workspace }}
-      #   acrName: myrailwebapp
       #   containerAppName: my-rails-web-app
-      #   resourceGroup: DefaultResourceGroup-EUS
+      #   appSourcePath: ${{ github.workspace }}
+      #   registryUrl: myrailwebapp.dockerhub.io
+      #   registryUsername: ${{ secrets.REGISTRY_USERNAME }}
+      #   registryPassword: ${{ secrets.REGISTRY_PASSWORD }}
+      with:
+        appSourcePath: ${{ github.workspace }}
+        acrName: myrailwebapp
+        containerAppName: my-rails-web-app
+        resourceGroup: DefaultResourceGroup-EUS
 
     # - name: Login to Azure Container Registry
     #   run: |
