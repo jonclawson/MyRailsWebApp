@@ -35,7 +35,7 @@ jobs:
       with:
         inlineScript: |
           echo "Starting Deploying"
-          az containerapp up -n myrailwebapp --resource-group DefaultResourceGroup-EUS --ingress external --target-port 3000 --image myrailwebapp.azurecr.io/myrailwebapp:${{ github.sha }} --registry-server myrailwebapp.azurecr.io --registry-username  ${{ secrets.REGISTRY_USERNAME }} --registry-password ${{ secrets.REGISTRY_PASSWORD }} --debug
+          az containerapp up -n myrailwebapp --resource-group DefaultResourceGroup-EUS --ingress external --image myrailwebapp.azurecr.io/myrailwebapp:${{ github.sha }} --registry-server myrailwebapp.azurecr.io --registry-username  ${{ secrets.REGISTRY_USERNAME }} --registry-password ${{ secrets.REGISTRY_PASSWORD }} --debug
 
     # - name: Build and deploy Container App
     #   uses: azure/container-apps-deploy-action@v2
