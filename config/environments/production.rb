@@ -1,7 +1,7 @@
 require "active_support/core_ext/integer/time"
 
 Rails.application.configure do
-  config.hosts = "helloworldapi.bluepebble-75904f77.eastus.azurecontainerapps.io"
+  config.hosts << /myrailwebapp.*.azurecontainerapps.io/
   # Settings specified here will take precedence over those in config/application.rb.
 
   # Code is not reloaded between requests.
