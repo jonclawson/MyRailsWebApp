@@ -20,7 +20,7 @@ jobs:
 
     - name: Build and Push Docker Image
       run: |
-        docker login myrailwebapp.azurecr.io --username 00000000-0000-0000-0000-000000000000 --password-stdin <<< ${{ secrets.TOKEN }}
+        docker login myrailwebapp.azurecr.io --username myrailwebapp --password-stdin <<< ${{ secrets.TOKEN }}
         docker build -t myrailwebapp.azurecr.io/myrailwebapp:${{ github.sha }} .
         docker push myrailwebapp.azurecr.io/myrailwebapp:${{ github.sha }}
       env:
